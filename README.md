@@ -180,6 +180,38 @@ classDiagram
     BorrowingController -- LibraryContext : uses
     HomeController -- LibraryContext : uses
 ```
+
+## Database UML
+```mermaid
+erDiagram
+    Books ||--o{ BorrowingRecords : has
+    Members ||--o{ BorrowingRecords : has
+
+    Books {
+        int Id PK
+        string Title
+        string Author
+        string ISBN
+        bool IsAvailable
+    }
+
+    Members {
+        int Id PK
+        string Name
+        string Email
+        string Phone
+    }
+
+    BorrowingRecords {
+        int Id PK
+        int BookId FK
+        int MemberId FK
+        datetime BorrowDate
+        datetime DueDate
+        datetime ReturnDate
+    }
+
+```
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
