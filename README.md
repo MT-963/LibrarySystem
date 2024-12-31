@@ -17,7 +17,6 @@ A complete library management system built with ASP.NET Core MVC and SQL Server.
 ## Configuration
 
 1. Update the connection string in `appsettings.json`:
-```json
 {
   "ConnectionStrings": {
     "DefaultConnection": "Server=.;Database=LibrarySystem;Trusted_Connection=True;TrustServerCertificate=True;"
