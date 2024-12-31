@@ -97,6 +97,90 @@ A complete library management system built with **ASP.NET Core MVC** and **SQL S
 
 ---
 
+## UML
+
+## UML Diagram
+
+### Class Diagram
+```mermaid
+classDiagram
+    class Book {
+        +int Id
+        +string Title
+        +string Author
+        +string ISBN
+        +bool IsAvailable
+        +ICollection<BorrowingRecord> BorrowingRecords
+    }
+
+    class Member {
+        +int Id
+        +string Name
+        +string Email
+        +string Phone
+        +ICollection<BorrowingRecord> BorrowingRecords
+    }
+
+    class BorrowingRecord {
+        +int Id
+        +int BookId
+        +int MemberId
+        +DateTime BorrowDate
+        +DateTime DueDate
+        +DateTime? ReturnDate
+        +Book Book
+        +Member Member
+    }
+
+    class LibraryContext {
+        +DbSet<Book> Books
+        +DbSet<Member> Members
+        +DbSet<BorrowingRecord> BorrowingRecords
+        +Task<string> BorrowBookAsync()
+        +Task<string> ReturnBookAsync()
+        +decimal CalculateFine()
+    }
+
+    class BooksController {
+        -LibraryContext _context
+        +IActionResult Index()
+        +IActionResult Create()
+        +IActionResult Edit()
+        +IActionResult Delete()
+        +IActionResult Search()
+    }
+
+    class MembersController {
+        -LibraryContext _context
+        +IActionResult Index()
+        +IActionResult Create()
+        +IActionResult Edit()
+        +IActionResult Delete()
+        +IActionResult Details()
+    }
+
+    class BorrowingController {
+        -LibraryContext _context
+        +IActionResult Index()
+        +IActionResult Create()
+        +IActionResult Return()
+    }
+
+    class HomeController {
+        -LibraryContext _context
+        +IActionResult Index()
+    }
+
+    Book "1" -- "*" BorrowingRecord : has
+    Member "1" -- "*" BorrowingRecord : has
+    LibraryContext -- Book : manages
+    LibraryContext -- Member : manages
+    LibraryContext -- BorrowingRecord : manages
+    BooksController -- LibraryContext : uses
+    MembersController -- LibraryContext : uses
+    BorrowingController -- LibraryContext : uses
+    HomeController -- LibraryContext : uses
+```
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
