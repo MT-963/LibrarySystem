@@ -1,0 +1,147 @@
+﻿<!-- Views/Members/Details.cshtml -->
+@model LibrarySystem.Models.ViewModels.MemberDetailsViewModel
+
+@{
+    ViewData["Title"] = "Member Details";
+}
+
+<div class="container-fluid">
+    <h1>Member Details</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Personal Information</h4>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Name</dt>
+                        <dd class="col-sm-9">@Model.Member.Name</dd>
+
+                        <dt class="col-sm-3">Email</dt>
+                        <dd class="col-sm-9">@Model.Member.Email</dd>
+
+                        <dt class="col-sm-3">Phone</dt>
+                        <dd class="col-sm-9">@Model.Member.Phone</dd>
+
+                        <dt class="col-sm-3">Status</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.CanBorrowMore)
+                            {
+                                <span class="badge bg-success">Can Borrow Books</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning">Maximum Books Borrowed</span>
+                            }
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Active Borrowings</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Book Title</th>
+                                    <th>Author</th>
+                                    <th>Borrow Date</th>
+                                    <th>Due Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var borrowing in Model.ActiveBorrowings)
+                                {
+                                    <tr>
+                                        <td>@borrowing.Book.Title</td>
+                                        <td>@borrowing.Book.Author</td>
+                                        <td>@borrowing.BorrowDate.ToShortDateString()</td>
+                                        <td>@borrowing.DueDate.ToShortDateString()</td>
+                                        <td>
+                                            @if (borrowing.DueDate < DateTime.Now)
+                                            {
+                                                <span class="badge bg-danger">Overdue</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-success">Active</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Borrowing History</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Book</th>
+                                    <th>Borrow Date</th>
+                                    <th>Due Date</th>
+                                    <th>Return Date</th>
+                                    <th>Fine</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var borrowing in Model.BorrowingHistory)
+                                {
+                                    <tr>
+                                        <td>@borrowing.Book.Title</td>
+                                        <td>@borrowing.BorrowDate.ToShortDateString()</td>
+                                        <td>@borrowing.DueDate.ToShortDateString()</td>
+                                        <td>
+                                            @(borrowing.ReturnDate?.ToShortDateString() ?? "Not Returned")
+                                        </td>
+                                        <td>
+                                            @if (Model.Fines.ContainsKey(borrowing.Id) && Model.Fines[borrowing.Id] > 0)
+                                            {
+                                                <span class="text-danger">$@Model.Fines[borrowing.Id]</span>
+                                            }
+                                            else
+                                            {
+                                                <span>-</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="Edit" asp-route-id="@Model.Member.Id" class="btn btn-primary">
+            <i class="fas fa-edit"></i> Edit
+        </a>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to List
+        </a>
+    </div>
+</div>

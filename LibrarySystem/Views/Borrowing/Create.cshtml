@@ -1,0 +1,61 @@
+﻿<!-- Views/Borrowing/Create.cshtml -->
+@model LibrarySystem.Models.ViewModels.CreateBorrowingViewModel
+<!-- Views/Borrowing/Create.cshtml -->
+@{
+    ViewData["Title"] = "New Borrowing";
+}
+
+<div class="container-fluid">
+    <h1>New Borrowing</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="BookId" class="control-label"></label>
+                            <select asp-for="BookId" class="form-select"
+                                    asp-items="@(new SelectList(Model.AvailableBooks, "Id", "Title"))">
+                                <option value="">-- Select Book --</option>
+                            </select>
+                            <span asp-validation-for="BookId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="MemberId" class="control-label"></label>
+                            <select asp-for="MemberId" class="form-select"
+                                    asp-items="@(new SelectList(Model.Members, "Id", "Name"))">
+                                <option value="">-- Select Member --</option>
+                            </select>
+                            <span asp-validation-for="MemberId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="DueDate" class="control-label"></label>
+                            <input asp-for="DueDate" class="form-control" type="date" />
+                            <span asp-validation-for="DueDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Create
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Back to List
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

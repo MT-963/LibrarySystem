@@ -1,0 +1,110 @@
+﻿<!-- Views/Home/Index.cshtml -->
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container-fluid">
+    <h1 class="mb-4">Welcome to Library Management System</h1>
+
+    <div class="row">
+        <!-- Quick Stats -->
+        <div class="col-md-3">
+            <div class="card bg-primary text-white mb-4 dashboard-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0">Total Books</h6>
+                            <h2 class="mb-0">@ViewBag.TotalBooks</h2>
+                        </div>
+                        <i class="fas fa-book fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-success text-white mb-4 dashboard-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0">Total Members</h6>
+                            <h2 class="mb-0">@ViewBag.TotalMembers</h2>
+                        </div>
+                        <i class="fas fa-users fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-warning text-white mb-4 dashboard-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0">Active Borrowings</h6>
+                            <h2 class="mb-0">@ViewBag.ActiveBorrowings</h2>
+                        </div>
+                        <i class="fas fa-exchange-alt fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-danger text-white mb-4 dashboard-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0">Overdue Books</h6>
+                            <h2 class="mb-0">@ViewBag.OverdueBooks</h2>
+                        </div>
+                        <i class="fas fa-exclamation-triangle fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <!-- Quick Actions -->
+        <div class="col-md-6">
+            <div class="card dashboard-card">
+                <div class="card-header">
+                    <h5 class="mb-0">Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-3">
+                        <a asp-controller="Books" asp-action="Create" class="btn btn-outline-primary">
+                            <i class="fas fa-plus"></i> Add New Book
+                        </a>
+                        <a asp-controller="Members" asp-action="Create" class="btn btn-outline-success">
+                            <i class="fas fa-user-plus"></i> Register New Member
+                        </a>
+                        <a asp-controller="Borrowing" asp-action="Create" class="btn btn-outline-info">
+                            <i class="fas fa-book"></i> New Borrowing
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activities -->
+        <div class="col-md-6">
+            <div class="card dashboard-card">
+                <div class="card-header">
+                    <h5 class="mb-0">Recent Activities</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        @foreach (var activity in ViewBag.RecentActivities ?? new List<string>())
+                        {
+                            <div class="list-group-item">
+                                <i class="fas fa-history"></i> @activity
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

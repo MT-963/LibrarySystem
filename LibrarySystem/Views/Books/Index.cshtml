@@ -1,0 +1,51 @@
+﻿<!-- Views/Books/Index.cshtml -->
+@model IEnumerable<LibrarySystem.Models.Book>
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Library Books</h1>
+    <div>
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Add New Book
+        </a>
+        <a asp-action="Search" class="btn btn-secondary">
+            <i class="fas fa-search"></i> Search Books
+        </a>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Title)</th>
+            <th>@Html.DisplayNameFor(model => model.Author)</th>
+            <th>@Html.DisplayNameFor(model => model.ISBN)</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Title)</td>
+                <td>@Html.DisplayFor(modelItem => item.Author)</td>
+                <td>@Html.DisplayFor(modelItem => item.ISBN)</td>
+                <td>
+                    @(item.IsAvailable ? "Available" : "Borrowed")
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+        
+
+
+            </tr>
+        }
+    </tbody>
+</table>

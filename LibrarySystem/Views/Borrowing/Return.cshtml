@@ -1,0 +1,45 @@
+﻿@model LibrarySystem.Models.ViewModels.ReturnBookViewModel
+
+@{
+    ViewData["Title"] = "Return Book";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3>Return Book</h3>
+    </div>
+    <div class="card-body">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <dl class="row">
+            <dt class="col-sm-3">Book</dt>
+            <dd class="col-sm-9">@Model.BorrowingRecord.Book.Title</dd>
+
+            <dt class="col-sm-3">Member</dt>
+            <dd class="col-sm-9">@Model.BorrowingRecord.Member.Name</dd>
+
+            <dt class="col-sm-3">Borrow Date</dt>
+            <dd class="col-sm-9">@Model.BorrowingRecord.BorrowDate.ToShortDateString()</dd>
+
+            <dt class="col-sm-3">Due Date</dt>
+            <dd class="col-sm-9">@Model.BorrowingRecord.DueDate.ToShortDateString()</dd>
+
+            @if (Model.Fine > 0)
+            {
+                <dt class="col-sm-3">Fine Amount</dt>
+                <dd class="col-sm-9">
+                    <span class="text-danger">$@Model.Fine</span>
+                </dd>
+            }
+        </dl>
+
+        <form asp-action="ReturnConfirmed" asp-route-id="@Model.BorrowingRecord.Id">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-check"></i> Confirm Return
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back to List
+            </a>
+        </form>
+    </div>
+</div>

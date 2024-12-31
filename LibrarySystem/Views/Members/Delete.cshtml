@@ -1,0 +1,39 @@
+﻿<!-- Views/Members/Delete.cshtml -->
+@model LibrarySystem.Models.Member
+
+@{
+    ViewData["Title"] = "Delete Member";
+}
+
+<div class="container-fluid">
+    <h1>Delete Member</h1>
+
+    <div class="alert alert-danger">
+        <h3>Are you sure you want to delete this member?</h3>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-2">Name</dt>
+                <dd class="col-sm-10">@Model.Name</dd>
+
+                <dt class="col-sm-2">Email</dt>
+                <dd class="col-sm-10">@Model.Email</dd>
+
+                <dt class="col-sm-2">Phone</dt>
+                <dd class="col-sm-10">@Model.Phone</dd>
+            </dl>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to List
+                </a>
+            </form>
+        </div>
+    </div>
+</div>

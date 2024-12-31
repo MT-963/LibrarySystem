@@ -1,0 +1,105 @@
+﻿<!-- Views/Books/Details.cshtml -->
+@model LibrarySystem.Models.Book
+
+@{
+    ViewData["Title"] = "Book Details";
+}
+
+<div class="container-fluid">
+    <h1>Book Details</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Book Information</h4>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Title</dt>
+                        <dd class="col-sm-9">@Model.Title</dd>
+
+                        <dt class="col-sm-3">Author</dt>
+                        <dd class="col-sm-9">@Model.Author</dd>
+
+                        <dt class="col-sm-3">ISBN</dt>
+                        <dd class="col-sm-9">@Model.ISBN</dd>
+
+                        <dt class="col-sm-3">Status</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.IsAvailable)
+                            {
+                                <span class="badge bg-success">Available</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning">Borrowed</span>
+                            }
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Borrowing History</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Member</th>
+                                    <th>Borrow Date</th>
+                                    <th>Due Date</th>
+                                    <th>Return Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var borrowing in Model.BorrowingRecords.OrderByDescending(b => b.BorrowDate))
+                                {
+                                    <tr>
+                                        <td>@borrowing.Member.Name</td>
+                                        <td>@borrowing.BorrowDate.ToShortDateString()</td>
+                                        <td>@borrowing.DueDate.ToShortDateString()</td>
+                                        <td>
+                                            @(borrowing.ReturnDate?.ToShortDateString() ?? "-")
+                                        </td>
+                                        <td>
+                                            @if (borrowing.ReturnDate.HasValue)
+                                            {
+                                                <span class="badge bg-success">Returned</span>
+                                            }
+                                            else if (borrowing.DueDate < DateTime.Now)
+                                            {
+                                                <span class="badge bg-danger">Overdue</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-primary">Active</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">
+            <i class="fas fa-edit"></i> Edit
+        </a>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to List
+        </a>
+    </div>
+</div>

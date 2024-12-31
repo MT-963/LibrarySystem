@@ -1,0 +1,56 @@
+﻿@model IEnumerable<LibrarySystem.Models.Book>
+@{
+    ViewData["Title"] = "Search Books";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3>Search Books</h3>
+    </div>
+    <div class="card-body">
+        <form method="post" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="searchTerm" class="form-control" placeholder="Enter book title, author or ISBN" />
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+
+        @if (Model != null && Model.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>ISBN</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var book in Model)
+                    {
+                        <tr>
+                            <td>@book.Title</td>
+                            <td>@book.Author</td>
+                            <td>@book.ISBN</td>
+                            <td>
+                                @if (book.IsAvailable)
+                                {
+                                    <span class="badge bg-success">Available</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning">Borrowed</span>
+                                }
+                            </td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@book.Id" class="btn btn-info btn-sm">Details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
