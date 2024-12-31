@@ -1,5 +1,3 @@
-# Library Management System
-
 A complete library management system built with ASP.NET Core MVC and SQL Server.
 
 ## Prerequisites
@@ -25,3 +23,39 @@ A complete library management system built with ASP.NET Core MVC and SQL Server.
     "DefaultConnection": "Server=.;Database=LibrarySystem;Trusted_Connection=True;TrustServerCertificate=True;"
   }
 }
+
+## Installation
+Clone the repository
+BASH
+
+git clone https://github.com/yourusername/LibrarySystem.git
+Navigate to the project directory
+BASH
+
+cd LibrarySystem
+Restore NuGet packages
+BASH
+
+dotnet restore
+Run the application
+BASH
+
+dotnet run
+Features
+Book Management (CRUD operations)
+Member Management
+Borrowing System
+Fine Calculation
+Search Functionality
+Dashboard with Statistics
+Database Objects
+Stored Procedures
+sp_SearchBooks
+sp_BorrowBook
+sp_ReturnBook
+sp_GetOverdueBooks
+sp_GetMemberActiveBorrowings
+Functions
+fn_CalculateFine
+Views
+VW_BorrowingDetails
