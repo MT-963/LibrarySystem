@@ -97,7 +97,6 @@ A complete library management system built with **ASP.NET Core MVC** and **SQL S
 
 ---
 
-## UML
 
 ## UML Diagram
 
