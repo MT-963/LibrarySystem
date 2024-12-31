@@ -1,118 +1,105 @@
-Library Management System
+# Library Management System
 
-A complete library management system built with ASP.NET Core MVC and SQL Server.
+A complete library management system built with **ASP.NET Core MVC** and **SQL Server**.
 
-Prerequisites
+---
 
-Visual Studio 2022
+## Prerequisites
 
-SQL Server 2019 or later
+- **Visual Studio 2022**
+- **SQL Server 2019** or later
+- **.NET 8.0 SDK**
 
-.NET 8.0 SDK
+---
 
-Database Setup
+## Database Setup
 
-Open SQL Server Management Studio.
+1. Open **SQL Server Management Studio**.
+2. Right-click on **Databases**.
+3. Select **Restore Database**.
+4. Choose **Device**, then navigate to `Database/LibrarySystem.bak`.
+5. Click **OK** to restore the database.
 
-Right-click on Databases.
+---
 
-Select Restore Database.
+## Configuration
 
-Choose Device, then navigate to Database/LibrarySystem.bak.
+1. Open the `appsettings.json` file.
+2. Update the connection string as shown below:
+   ```json
+   {
+     "ConnectionStrings": {
+       "DefaultConnection": "Server=.;Database=LibrarySystem;Trusted_Connection=True;TrustServerCertificate=True;"
+     }
+   }
+   ```
 
-Click OK to restore the database.
+---
 
-Configuration
+## Installation
 
-Open the appsettings.json file.
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/yourusername/LibrarySystem.git
+   ```
 
-Update the connection string as shown below:
+2. **Navigate to the Project Directory:**
+   ```bash
+   cd LibrarySystem
+   ```
 
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=.;Database=LibrarySystem;Trusted_Connection=True;TrustServerCertificate=True;"
-  }
-}
+3. **Restore NuGet Packages:**
+   ```bash
+   dotnet restore
+   ```
 
-Installation
+4. **Run the Application:**
+   ```bash
+   dotnet run
+   ```
 
-Clone the Repository:
+---
 
-git clone https://github.com/yourusername/LibrarySystem.git
+## Features
 
-Navigate to the Project Directory:
+- **Book Management:**
+  - Create, Read, Update, Delete (CRUD) operations for books.
+- **Member Management:**
+  - Manage library members and their details.
+- **Borrowing System:**
+  - Issue and return books.
+- **Fine Calculation:**
+  - Automatically calculate overdue fines.
+- **Search Functionality:**
+  - Search for books and members.
+- **Dashboard with Statistics:**
+  - Overview of library data and analytics.
 
-cd LibrarySystem
+---
 
-Restore NuGet Packages:
+## Database Objects
 
-dotnet restore
+### Stored Procedures
 
-Run the Application:
+- **sp_SearchBooks**: Search for books based on title, author, or genre.
+- **sp_BorrowBook**: Handle the borrowing process.
+- **sp_ReturnBook**: Handle the returning process.
+- **sp_GetOverdueBooks**: Retrieve overdue books.
+- **sp_GetMemberActiveBorrowings**: Get active borrowings for a specific member.
 
-dotnet run
+### Functions
 
-Features
+- **fn_CalculateFine**: Calculate overdue fines based on the due date and return date.
 
-Book Management:
+### Views
 
-Create, Read, Update, Delete (CRUD) operations for books.
+- **VW_BorrowingDetails**: View detailed borrowing records.
 
-Member Management:
+---
 
-Manage library members and their details.
+## License
 
-Borrowing System:
+This project is licensed under the [MIT License](LICENSE).
 
-Issue and return books.
 
-Fine Calculation:
-
-Automatically calculate overdue fines.
-
-Search Functionality:
-
-Search for books and members.
-
-Dashboard with Statistics:
-
-Overview of library data and analytics.
-
-Database Objects
-
-Stored Procedures
-
-sp_SearchBooks: Search for books based on title, author, or genre.
-
-sp_BorrowBook: Handle the borrowing process.
-
-sp_ReturnBook: Handle the returning process.
-
-sp_GetOverdueBooks: Retrieve overdue books.
-
-sp_GetMemberActiveBorrowings: Get active borrowings for a specific member.
-
-Functions
-
-fn_CalculateFine: Calculate overdue fines based on the due date and return date.
-
-Views
-
-VW_BorrowingDetails: View detailed borrowing records.
-
-Contributing
-
-Contributions are welcome! Please follow these steps:
-
-Fork the repository.
-
-Create a new branch for your feature/bug fix.
-
-Commit your changes and push to your fork.
-
-Submit a pull request to the main repository.
-
-License
-
-This project is licensed under the MIT License.
 
